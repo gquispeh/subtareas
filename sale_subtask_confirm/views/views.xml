@@ -109,7 +109,12 @@
                                 <field name="currency_id" invisible="1"/>
                                 <field name="price_tax" invisible="1"/>
                                 <field name="company_id" invisible="1"/>
-                                <button name="button_task" type="object" string="Tareas"  icon="fa-file"  class="bg-primary"/>
+                                <button name="button_task" 
+                                    attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"
+                                    type="object"
+                                    string="Tareas"
+                                    icon="fa-file"
+                                    class="bg-primary"/>
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="name"/>
