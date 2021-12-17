@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_subtask_search.project_task_searchpanel_action" model="ir.actions.act_window">
+        <field name="name">Tareas</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="sale_subtask.project_task_view_tree"/>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p>Crear una nueva linea de venta</p>
+        </field>
+    </record>
+
+    <record id="sale_subtask_search.project_task_view_tree" model="ir.ui.view">
+        <field name="name">project.task.view.form</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree string="Tareas" editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="name" />
+                <field name="description" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="sale_subtask_search.view_project_task_search" model="ir.ui.view">
+        <field name="name">project.task.search</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <search string="Tareas">
+                <field name="sale_order_id" />
+                <field name="sale_line_id" />
+                <group expand="0" string="Group By">
+                    <filter name="group_by_sale_order" string="Orden" context="{'group_by': 'sale_order_id'}"/>
+                    <filter name="group_by_sale_line_order" string="Linea" context="{'group_by': 'sale_line_id'}"/>
+                </group>
+                <searchpanel>
+                    <field name="parent_id" string="Tarea Padre" enable_counters="1"/>
+                    <field name="sale_line_id" select="multi" domain="[('order_id','=',sale_order_id)]" string="Linea de Venta" icon="fa-star" enable_counters="1"/>
+                    <field name="sale_order_id" string="Orden de Venta" icon="fa-globe" enable_counters="1"/>
+                    <!--field name="child_ids" select="multi" domain="[('parent_id','=',parent_id)]" string="Linea" icon="fa-star" enable_counters="1"/-->
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    
+    <menuitem
+        id="sale_subtask_search.sale_subtask_view_searchpanel_menu"
+        name="Tareas"
+        action="sale_subtask_search.project_task_searchpanel_action"
+        parent="project.menu_main_pm"
+        sequence="10"/>
+</odoo>
