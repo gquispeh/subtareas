@@ -196,8 +196,8 @@
                             <field name="line_id"/>
                         </group>
                         <group>
-                            <field name="subtask_ids">
-                                <tree editable="bottom">
+                            <field name="subtask_ids" options="{'no_create_edit': True}" widget='many2many_tags'>
+                                <tree editable="top">
                                     <field name="name"/>
                                     <field name="line_id" invisible="1"/>
                                     <field name="state"/>
