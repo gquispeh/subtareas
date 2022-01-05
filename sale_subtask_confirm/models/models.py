@@ -88,3 +88,14 @@ class SaleOrderSubTask(models.Model):
                                 "company_id":self.company_id.id}
                         parent_task.write({'child_ids': [(0, 0, values)]})
                         subtask.write({'state': '1'})
+    
+    def action_view_task_description(self):
+        return {
+                "type": "ir.actions.act_window",
+                'target': 'current',
+                'res_model': 'project.task',
+                "view_id": self.env.ref('sale_subtask_search.project_task_searchpanel_action').id,
+                'view_mode': 'form',
+                'name': u'Descripcion de Tareas',
+                "context": {},
+                }
