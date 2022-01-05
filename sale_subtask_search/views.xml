@@ -4,7 +4,7 @@
         <field name="name">project.task.view.form</field>
         <field name="model">project.task</field>
         <field name="arch" type="xml">
-            <tree string="Tareas" editable="top" class="custom_class">
+            <tree string="Tareas" editable="top">
                 <field name="sequence" widget="handle"/>
                 <field name="name" readonly="1"/>
                 <field name="description" />
