@@ -91,11 +91,12 @@ class SaleOrderSubTask(models.Model):
     
     def action_view_task_description(self):
         return {
-                "type": "ir.actions.act_window",
+                'type': 'ir.actions.act_window',
                 'target': 'current',
                 'res_model': 'project.task',
                 "view_id": self.env.ref('sale_subtask_search.project_task_view_tree').id,
                 'view_mode': 'tree',
                 'name': u'Descripcion de Tareas',
-                "context": {},
+                "domain": [["sale_order_id", "=", self.id]],
+                'context': {},
                 }
