@@ -94,8 +94,8 @@ class SaleOrderSubTask(models.Model):
                 "type": "ir.actions.act_window",
                 'target': 'current',
                 'res_model': 'project.task',
-                "view_id": self.env.ref('sale_subtask_search.project_task_searchpanel_action').id,
-                'view_mode': 'form',
+                "view_id": self.env.ref('sale_subtask_search.project_task_view_tree').id,
+                'view_mode': 'tree',
                 'name': u'Descripcion de Tareas',
                 "context": {},
                 }
