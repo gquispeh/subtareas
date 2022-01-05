@@ -6,9 +6,4 @@
         'views.xml',
     ],
     'license': 'LGPL-3',
-    'assets': {
-        'web.assets_backend' [
-            'sale_subtask_search/static/src/scss/style.scss',
-        ],
-        }
 }
