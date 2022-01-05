@@ -5,5 +5,12 @@
     'data': [
         'views.xml',
     ],
+    'installable': True,
+    'application': True,
+    'assets': {
+        'web.assets_backend': [
+            'sale_subtask_search/static/src/**/*',
+        ],
+    },
     'license': 'LGPL-3',
 }
