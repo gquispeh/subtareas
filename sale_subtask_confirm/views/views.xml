@@ -202,10 +202,12 @@
                         </group>
                         <notebook>
                             <page name="lines" string="Lineas">
-                                <tree>
-                                    <field name="order_line"/>
-                                    <field name="subtask_ids" widget="many2many_tags"/>
-                                </tree>
+                                <field name="order_line">
+                                    <tree>
+                                        <field name="name"/>
+                                        <field name="subtask_ids" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
                             </page>
                         </notebook>
                     </sheet>
