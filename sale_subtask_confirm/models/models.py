@@ -17,6 +17,7 @@ class SaleOrderLineTask(models.Model):
     _inherit = "sale.order.line"
     subtask_ids = fields.One2many('sale.order.line.subtask', 'line_id', string='Sub Tareas')
     
+    #abre el wizard de tareas por linea
     def button_task(self):
         product_type = self.product_id.type
         if product_type == 'service':
@@ -35,24 +36,20 @@ class SaleOrderLineTask(models.Model):
 
 class SaleOrderLineTaskWizard(models.TransientModel):
     _name = "sale.order.line.wizard"
-    line_id = fields.Many2one('sale.order.line',
+    line_id = fields.Many2many('sale.order.line',
                             readonly=True,
                             string='Linea de Venta')
     subtask_ids = fields.Many2many('sale.order.line.subtask',
                                     readonly=False,
                                     string='Sub Tareas')
     
+    #cambia las tareas asignadas a la linea
     @api.onchange('line_id')
     def compute_sutask_lines(self):
         lines = self.env['sale.order.line.subtask'].search([('line_id', '=', self.line_id.id)]).ids
         self.write({'subtask_ids': [(6, 0, lines)]})
 
-    def added(self):
-        subtask = self.subtask_ids.ids
-        for line in self.subtask_ids:
-            line.write({'line_id': self.line_id.id})
-        self.line_id.write({'subtask_ids': [(6, 0, subtask)]})
-        self.line_id.order_id.write({'sale_task_status':'1'})
+    
 
 class SaleOrderSubTask(models.Model):
     _inherit = "sale.order"
@@ -94,17 +91,22 @@ class SaleOrderSubTask(models.Model):
                         parent_task.write({'child_ids': [(0, 0, values)]})
                         subtask.write({'state': '1'})
     
+    def added(self):
+        subtask = self.subtask_ids.ids
+        for line in self.subtask_ids:
+            line.write({'line_id': self.line_id.id})
+        self.line_id.write({'subtask_ids': [(6, 0, subtask)]})
+        self.line_id.order_id.write({'sale_task_status':'1'})
+    
     def action_view_task_description(self):
         if self.sale_task_status == '0':
             return {
                     "type": "ir.actions.act_window",
                     'target': 'new',
-                    'res_model': 'sale.order.line.wizard',
-                    "view_id": self.env.ref('sale_subtask_confirm.sale_order_line_wizard_form').id,
+                    'res_model': 'sale.order.line',
+                    "view_id": self.env.ref('sale_subtask_confirm.sale_order_line_task').id,
                     'view_mode': 'form',
                     'name': u'Sub Tareas',
-                    "context": {"default_line_id": self.id,
-                                "search_default_line_id": self.id},
                 }
         else:
             return {

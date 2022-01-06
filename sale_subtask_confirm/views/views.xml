@@ -189,25 +189,25 @@
                 </data>
             </field>
         </record>
-        <record id="sale_subtask_confirm.sale_order_line_wizard_form" model="ir.ui.view">
-            <field name="name">sale.order.line.wizard.form</field>
-            <field name="model">sale.order.line.wizard</field>
+        <record id="sale_subtask_confirm.sale_order_line_task" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Sale Sub Task">
+                <form string="Sale order task">
                     <sheet>
-                        <group>
-                            <field name="line_id"/>
+                        <group name="name" string="Nombre">
+                            <field name="name" />
+                            <field name="sale_task_status" />
                         </group>
-                        <group>
-                            <field name="subtask_ids" options="{'no_create_edit': True}" widget='many2many_tags'>
-                                <tree editable="top">
-                                    <field name="name"/>
-                                    <field name="line_id" invisible="1"/>
-                                    <field name="state"/>
+                        <notebook>
+                            <page name="lines" string="Lineas">
+                                <tree>
+                                    <field name="order_line"/>
+                                    <field name="subtask_ids" widget="many2many_tags"/>
                                 </tree>
-                            </field>
-                        </group>
+                            </page>
+                        </notebook>
                     </sheet>
                     <footer>
                         <button name="added" type="object" string="Actualizar" class="oe_highlight"/>
