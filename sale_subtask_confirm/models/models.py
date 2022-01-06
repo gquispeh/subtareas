@@ -103,7 +103,7 @@ class SaleOrderSubTask(models.Model):
             return {
                     "type": "ir.actions.act_window",
                     'target': 'new',
-                    'res_model': 'sale.order.line',
+                    'res_model': 'sale.order',
                     "view_id": self.env.ref('sale_subtask_confirm.sale_order_line_task').id,
                     'view_mode': 'form',
                     'name': u'Sub Tareas',
