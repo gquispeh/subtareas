@@ -109,12 +109,12 @@
                                 <field name="currency_id" invisible="1"/>
                                 <field name="price_tax" invisible="1"/>
                                 <field name="company_id" invisible="1"/>
-                                <button name="button_task" 
+                                <!--button name="button_task" 
                                     attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"
                                     type="object"
                                     string="Tareas"
                                     icon="fa-file"
-                                    class="bg-primary"/>
+                                    class="bg-primary"/-->
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="name"/>
@@ -182,14 +182,13 @@
                         </field>
                     </xpath>
                     <xpath expr="//button[@name='action_view_invoice']" position="before">
-                        <button type="object" name="action_view_task_description" class="oe_stat_button" icon="fa-edit" attrs="{'invisible': [('tasks_count', '=', 0)]}" groups="project.group_project_user">
+                        <button type="object" name="action_view_task_description" class="oe_stat_button" icon="fa-edit" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" groups="project.group_project_user">
                             <field name="tasks_count" widget="statinfo" string="Tasks"/>
                         </button>
                     </xpath>
                 </data>
             </field>
         </record>
-        
         <record id="sale_subtask_confirm.sale_order_line_wizard_form" model="ir.ui.view">
             <field name="name">sale.order.line.wizard.form</field>
             <field name="model">sale.order.line.wizard</field>

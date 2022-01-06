@@ -52,11 +52,16 @@ class SaleOrderLineTaskWizard(models.TransientModel):
         for line in self.subtask_ids:
             line.write({'line_id': self.line_id.id})
         self.line_id.write({'subtask_ids': [(6, 0, subtask)]})
-
+        self.line_id.order_id.write({'sale_task_status':'1'})
 
 class SaleOrderSubTask(models.Model):
     _inherit = "sale.order"
     
+    sale_task_status = fields.Selection([
+        ('0', 'wizard'),
+        ('1', 'redaccion'),
+    ], default='0', string='Sale Task Status')
+
     def _action_confirm(self):
         """ On SO confirmation, some lines should generate a task or a project. """
         result = super()._action_confirm()
@@ -90,7 +95,19 @@ class SaleOrderSubTask(models.Model):
                         subtask.write({'state': '1'})
     
     def action_view_task_description(self):
-        return {
+        if self.sale_task_status == '0':
+            return {
+                    "type": "ir.actions.act_window",
+                    'target': 'new',
+                    'res_model': 'sale.order.line.wizard',
+                    "view_id": self.env.ref('sale_subtask_confirm.sale_order_line_wizard_form').id,
+                    'view_mode': 'form',
+                    'name': u'Sub Tareas',
+                    "context": {"default_line_id": self.id,
+                                "search_default_line_id": self.id},
+                }
+        else:
+            return {
                 'type': 'ir.actions.act_window',
                 'target': 'current',
                 'res_model': 'project.task',
