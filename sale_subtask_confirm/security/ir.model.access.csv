@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sale_order_line_subtask.sale_order_line_subtask,sale_subtask_confirm.sale_order_line_subtask.security,model_sale_order_line_subtask,,1,1,1,1
-access_sale_order_line_wizard.sale_order_line_wizard,sale_subtask_confirm.sale_order_line_wizard.security,model_sale_order_line_wizard,,1,1,1,1
+access_sale_order_wizard.sale_order_wizard,sale_subtask_confirm.security,model_sale_order_wizard,,1,1,1,1
+access_sale_order_line_wizard.sale_order_line_wizard,sale_line_wizard.security,model_sale_order_line_wizard,,1,1,1,1

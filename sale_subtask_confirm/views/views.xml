@@ -109,12 +109,12 @@
                                 <field name="currency_id" invisible="1"/>
                                 <field name="price_tax" invisible="1"/>
                                 <field name="company_id" invisible="1"/>
-                                <button name="button_task" 
+                                <!--button name="button_task" 
                                     attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}"
                                     type="object"
                                     string="Tareas"
                                     icon="fa-file"
-                                    class="bg-primary"/>
+                                    class="bg-primary"/-->
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="name"/>
@@ -181,33 +181,38 @@
                             </kanban>
                         </field>
                     </xpath>
+                    <xpath expr="//button[@name='action_view_invoice']" position="before">
+                        <button type="object" name="action_view_task_description" class="oe_stat_button" icon="fa-edit" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" groups="project.group_project_user">
+                            <field name="tasks_count" widget="statinfo" string="Tasks"/>
+                        </button>
+                    </xpath>
                 </data>
             </field>
         </record>
-        
-        <record id="sale_subtask_confirm.sale_order_line_wizard_form" model="ir.ui.view">
-            <field name="name">sale.order.line.wizard.form</field>
-            <field name="model">sale.order.line.wizard</field>
+        <record id="sale_subtask_confirm.sale_order_line_task" model="ir.ui.view">
+            <field name="name">sale.order.wizard.form</field>
+            <field name="model">sale.order.wizard</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Sale Sub Task">
+                <form string="Sale order task">
                     <sheet>
-                        <group>
-                            <field name="line_id"/>
+                        <group name="name" string="Nombre">
+                            <field name="order_line" readonly="1"/>
                         </group>
-                        <group>
-                            <field name="subtask_ids">
-                                <tree editable="bottom">
-                                    <field name="name"/>
-                                    <field name="line_id" invisible="1"/>
-                                    <field name="state"/>
-                                </tree>
-                            </field>
-                        </group>
+                        <notebook>
+                            <page name="lines" string="Lineas">
+                                <field name="line_ids" mode="tree" readonly="0">
+                                    <tree editable="top">
+                                        <field name="name"/>
+                                        <field name="subtask_ids" widget="many2many_tags"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                     <footer>
-                        <button name="added" type="object" string="Actualizar" class="oe_highlight"/>
-                            or
+                        <button string="Crear" name="added_task" type="object" class="oe_highlight"/>
+                        <button special="save" string="Guardar"/>
                         <button special="cancel" string="Cancel"/>
                     </footer>
                 </form>

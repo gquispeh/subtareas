@@ -3,7 +3,7 @@
 	'name': 'Sale Subtask',
 	'category': 'Sale',
 	'author': 'DT DATA',
-	'depends': ['base','sale','project','sale_project'],
+	'depends': ['base','sale','project','sale_project','sale_subtask_search'],
 	'version': '1.0.0',
 	'description': """
 	- Generacion de Subtask segun el cambio del modelo de lineas de venta
