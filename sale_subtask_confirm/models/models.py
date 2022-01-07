@@ -68,6 +68,7 @@ class SaleOrderSubTask(models.Model):
     sale_task_status = fields.Selection([
         ('0', 'wizard'),
         ('1', 'redaccion'),
+        ('2', 'oculto'),
     ], default='0', string='Sale Task Status')
 
     def _action_confirm(self):

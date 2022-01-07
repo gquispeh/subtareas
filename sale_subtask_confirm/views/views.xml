@@ -182,7 +182,8 @@
                         </field>
                     </xpath>
                     <xpath expr="//button[@name='action_view_invoice']" position="before">
-                        <button type="object" name="action_view_task_description" class="oe_stat_button" icon="fa-edit" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" groups="project.group_project_user">
+                        <!--button type="object" name="action_view_task_description" class="oe_stat_button" icon="fa-edit" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" groups="project.group_project_user"-->
+                        <button type="object" name="action_view_task_description" class="oe_stat_button" icon="fa-edit" attrs="{'invisible': [('sale_task_status', 'in', ['2'])]}" groups="project.group_project_user">
                             <field name="tasks_count" widget="statinfo" string="Tasks"/>
                         </button>
                     </xpath>
