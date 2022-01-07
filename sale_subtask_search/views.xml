@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Tareas" editable="top">
                 <field name="sequence" widget="handle"/>
-                <field name="name" />
+                <field name="name" readonly="1"/>
                 <field name="description" />
             </tree>
         </field>
