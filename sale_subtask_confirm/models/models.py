@@ -40,6 +40,13 @@ class SaleOrderTaskWizard(models.TransientModel):
 
     def added_task(self):
         self.order_line.write({'sale_task_status': '1'})
+        project_values = {"name": self.order_line.name,
+                          "sale_order_id": self.order_line.id,
+                          "partner_id": self.order_line.partner_id.id,
+                          "company_id": self.order_line.company_id.id}
+        #parent_task.write({'child_ids': [(0, 0, values)]})
+        tarea = self.env['project.project'].create(project_values)
+
         '''for line in self.order_line.line_ids:
             for task in line.subtask_ids:
                 values = {"name": line.name,
